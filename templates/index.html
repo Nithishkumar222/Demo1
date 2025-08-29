@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Weather in {{ weather.name }}</title>
+    <title>Weather in {{ weather.name if weather else 'City' }}</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f0f8ff; text-align: center; padding: 40px; }
         .card { background: rgb(224, 172, 172); padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); display: inline-block; }
         h1 { color: #d41515; }
         p { font-size: 18px; }
+        input[type="text"] { padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ccc; }
+        button { padding: 10px 15px; background-color: #13c7be; color: white; border: none; border-radius: 5px; cursor: pointer; }
+       
     </style>
 </head>
 <body>
+    <h1>Weather App</h1>
+    
+    <!-- City Input Form -->
+    <form action="/weather" method="get">
+        <input type="text" name="city" placeholder="Enter City" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather %}
     <div class="card">
         <h1>Weather in {{ weather.name }}</h1>
         <p><b>Temperature:</b> {{ weather.main.temp }} °C</p>
@@ -20,5 +32,6 @@
         <p><b>Weather:</b> {{ weather.weather[0].main }} ({{ weather.weather[0].description }})</p>
         <p><b>Wind Speed:</b> {{ weather.wind.speed }} m/s</p>
     </div>
+    {% endif %}
 </body>
 </html>
